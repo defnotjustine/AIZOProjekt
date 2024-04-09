@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <chrono> // Biblioteka do pomiaru czasu
+#include <random>
 
 using namespace std;
 using namespace std::chrono;
@@ -112,11 +113,35 @@ void bubbleSort(T arr[], int size) {
 
 // Funkcja do generowania losowych danych
 template<typename T>
-void generateRandomArray(T arr[], int size) {
+void generateRandomArray(T arr[], int size, char dataType) {
+    int min_int = std::numeric_limits<int>::min(); // Najmniejsza wartość typu int
+    int max_int = std::numeric_limits<int>::max(); // Największa wartość typu int
+    float min_float = std::numeric_limits<float>::lowest(); // Najmniejsza wartość typu float
+    float max_float = std::numeric_limits<float>::max();    // Największa wartość typu float
     srand(time(nullptr)); // Inicjalizacja generatora liczb pseudolosowych
-    for(int i = 0; i < size; ++i) {
-        arr[i] = rand() % 1000; // Zakres 0-999 dla przykładu
+    if(dataType == 'a'){
+        // Inicjalizacja generatora liczb losowych
+        random_device rd;
+        mt19937 gen(rd());
+
+        // Określenie rozkładu liczbowego (int_min do int_max)
+        uniform_int_distribution<int> distribution(min_int, max_int);
+        for(int i = 0; i < size; ++i){
+            arr[i] = distribution(gen);
+        }
     }
+    else if(dataType == 'b'){
+        for(int i = 0; i < size; ++i){
+            arr[i] = min_float + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (max_float - min_float)));
+        }
+    }
+    //OLD VERSION
+    /*
+    for(int i = 0; i < size; ++i) {
+        arr[i] = static_cast<T>(rand());
+        //arr[i] = rand() % 1000; // Zakres 0-999 dla przykładu
+    }
+     */
 }
 
 // Funkcja do wczytywania danych z pliku
@@ -170,13 +195,14 @@ double measureSortingTime(void (*sortFunc)(T[], int), T arr[], int size) {
     return duration.count(); // Zwrócenie czasu sortowania w milisekundach
 }
 
-
+template<typename T>
 string menu2(char dataType){
     char choice;
     int size;
     string filename;
     string program = "run";
-    int* arr = nullptr;
+    T* arr = nullptr;
+    //int* arr = nullptr;
 
     while(program == "run") {
         displayMenu2(); // Wyświetlenie menu
@@ -191,6 +217,9 @@ string menu2(char dataType){
             case 'b':
                 cout << "Podaj rozmiar tablicy: ";
                 cin >> size;
+                arr = new T[size];
+                generateRandomArray(arr, size, dataType);
+                /*
                 if(dataType == 'a'){
                     arr = new int[size];
                     generateRandomArray(arr, size); // Wygenerowanie tablicy losowych wartości
@@ -200,6 +229,7 @@ string menu2(char dataType){
                     arrFloat = new float[size];
                     generateRandomArray(arrFloat, size); // Wygenerowanie tablicy losowych wartości
                 }
+                */
                 break;
             case 'c':
                 if(arr == nullptr) {
@@ -278,12 +308,19 @@ int main() {
     while(true) {
         displayMenu1();
         cin >> choiceOfType;
-        if(choiceOfType == 'a' || choiceOfType == 'b'){
-            menu2(choiceOfType);
-        }
-        else if(choiceOfType == 'q'){
-            cout << "Koniec programu." << endl;
-            return 0;
+        switch(choiceOfType){
+            case 'a' :
+                menu2<int>(choiceOfType);
+                break;
+            case 'b' :
+                menu2<float>(choiceOfType);
+                break;
+            case 'q':
+                cout << "Koniec programu." << endl;
+                return 0;
+            default:
+                cout << "Niepoprawny wybor." << endl;
+                break;
         }
     }
 
