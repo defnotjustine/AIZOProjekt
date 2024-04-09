@@ -142,6 +142,7 @@ void displayMenu1(){
     cout << "Wybierz typ danych:" << endl;
     cout << "a) int" << endl;
     cout << "b) float" << endl;
+    cout << "Wybierz opcje: ";
 }
 
 // Funkcja do menu 1 poziomu
@@ -156,8 +157,17 @@ void displayMenu2() {
     cout << "q) Wyjscie z programu" << endl;
     cout << "Wybierz opcje: ";
 }
-void menu2(){
-    
+
+char menu1(){
+    char choice;
+    cin >> choice;
+    if(choice == 'a' || choice == 'b'){
+        return choice;
+    }
+    else {
+        cout << "Blad! Prosze wybrac 'a' lub 'b'" << endl;
+        menu1();
+    }
 }
 
 // Funkcja do pomiaru czasu sortowania
@@ -171,13 +181,14 @@ double measureSortingTime(void (*sortFunc)(T[], int), T arr[], int size) {
 }
 
 int main() {
-    char choice;
+    char choiceOfType, choice;
     int size;
     string filename;
     int* arr = nullptr;
 
     while(true) {
         displayMenu1();
+        choiceOfType = menu1(); // a - int, b - float
         displayMenu2(); // Wyświetlenie menu
         cin >> choice; // Wczytanie wyboru użytkownika
 
