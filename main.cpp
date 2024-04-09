@@ -161,11 +161,11 @@ void displayMenu2() {
 char menu1(){
     char choice;
     cin >> choice;
-    if(choice == 'a' || choice == 'b'){
+    if(choice == 'a' || choice == 'b' || choice == 'q'){
         return choice;
     }
     else {
-        cout << "Blad! Prosze wybrac 'a' lub 'b'" << endl;
+        cout << "Blad! Prosze wybrac 'a' lub 'b'. Jesli chcesz wyjsc z programu nacisnij 'q'" << endl;
         menu1();
     }
 }
@@ -188,7 +188,7 @@ int main() {
 
     while(true) {
         displayMenu1();
-        choiceOfType = menu1(); // a - int, b - float
+        choiceOfType = menu1(); // a - int, b - float, q - exit
         displayMenu2(); // Wyświetlenie menu
         cin >> choice; // Wczytanie wyboru użytkownika
 
@@ -201,8 +201,15 @@ int main() {
             case 'b':
                 cout << "Podaj rozmiar tablicy: ";
                 cin >> size;
-                arr = new int[size];
-                generateRandomArray(arr, size); // Wygenerowanie tablicy losowych wartości
+                if(choiceOfType == 'a'){
+                    arr = new int[size];
+                    generateRandomArray(arr, size); // Wygenerowanie tablicy losowych wartości
+                }
+                else if(choiceOfType == 'b'){
+                    float* arrFloat = nullptr;
+                    arrFloat = new float[size];
+                    generateRandomArray(arrFloat, size); // Wygenerowanie tablicy losowych wartości
+                }
                 break;
             case 'c':
                 if(arr == nullptr) {
