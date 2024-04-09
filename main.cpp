@@ -138,17 +138,18 @@ void loadArrayFromFile(T arr[], int& size, const string& filename) {
 // Funkcja do menu 1 poziomu
 
 void displayMenu1(){
-    cout << "Menu:" << endl;
+    cout << "Menu 1:" << endl;
     cout << "Wybierz typ danych:" << endl;
     cout << "a) int" << endl;
     cout << "b) float" << endl;
+    cout << "q) wyjscie z programu" << endl;
     cout << "Wybierz opcje: ";
 }
 
 // Funkcja do menu 1 poziomu
 
 void displayMenu2() {
-    cout << "Menu:" << endl;
+    cout << "Menu 2:" << endl;
     cout << "a) Wczytaj tablice z pliku" << endl;
     cout << "b) Wygeneruj tablice losowych wartosci" << endl;
     cout << "c) Wyswietl tablice" << endl;
@@ -158,17 +159,6 @@ void displayMenu2() {
     cout << "Wybierz opcje: ";
 }
 
-char menu1(){
-    char choice;
-    cin >> choice;
-    if(choice == 'a' || choice == 'b' || choice == 'q'){
-        return choice;
-    }
-    else {
-        cout << "Blad! Prosze wybrac 'a' lub 'b'. Jesli chcesz wyjsc z programu nacisnij 'q'" << endl;
-        menu1();
-    }
-}
 
 // Funkcja do pomiaru czasu sortowania
 template<typename T>
@@ -180,15 +170,15 @@ double measureSortingTime(void (*sortFunc)(T[], int), T arr[], int size) {
     return duration.count(); // Zwrócenie czasu sortowania w milisekundach
 }
 
-int main() {
-    char choiceOfType, choice;
+
+string menu2(char dataType){
+    char choice;
     int size;
     string filename;
+    string program = "run";
     int* arr = nullptr;
 
-    while(true) {
-        displayMenu1();
-        choiceOfType = menu1(); // a - int, b - float, q - exit
+    while(program == "run") {
         displayMenu2(); // Wyświetlenie menu
         cin >> choice; // Wczytanie wyboru użytkownika
 
@@ -201,11 +191,11 @@ int main() {
             case 'b':
                 cout << "Podaj rozmiar tablicy: ";
                 cin >> size;
-                if(choiceOfType == 'a'){
+                if(dataType == 'a'){
                     arr = new int[size];
                     generateRandomArray(arr, size); // Wygenerowanie tablicy losowych wartości
                 }
-                else if(choiceOfType == 'b'){
+                else if(dataType == 'b'){
                     float* arrFloat = nullptr;
                     arrFloat = new float[size];
                     generateRandomArray(arrFloat, size); // Wygenerowanie tablicy losowych wartości
@@ -270,11 +260,30 @@ int main() {
                 if(arr != nullptr) {
                     delete[] arr; // Zwolnienie pamięci
                 }
-                cout << "Koniec programu." << endl;
-                return 0;
+                cout << "Wyjscie z menu 2." << endl;
+                cout << " " << endl;
+                program = "exit";
+                return program;
             default:
                 cout << "Niepoprawny wybor." << endl;
                 break;
+        }
+    }
+}
+
+
+int main() {
+    char choiceOfType;
+
+    while(true) {
+        displayMenu1();
+        cin >> choiceOfType;
+        if(choiceOfType == 'a' || choiceOfType == 'b'){
+            menu2(choiceOfType);
+        }
+        else if(choiceOfType == 'q'){
+            cout << "Koniec programu." << endl;
+            return 0;
         }
     }
 
