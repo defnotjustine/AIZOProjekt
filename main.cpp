@@ -131,8 +131,14 @@ void generateRandomArray(T arr[], int size, char dataType) {
         }
     }
     else if(dataType == 'b'){
+        // Utwórz generator liczb losowych
+        random_device rd;
+        default_random_engine generator(rd());
+
+        uniform_real_distribution<double> distribution(min_float, max_float);
+
         for(int i = 0; i < size; ++i){
-            arr[i] = min_float + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (max_float - min_float)));
+            arr[i] = distribution(generator);
         }
     }
     //OLD VERSION
