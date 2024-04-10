@@ -295,6 +295,7 @@ string menu2(char dataType){
             case 'q':
                 if(arr != nullptr) {
                     delete[] arr; // Zwolnienie pamięci
+                    delete[] originalArr;
                 }
                 cout << "Wyjscie z menu 2." << endl;
                 cout << " " << endl;
