@@ -11,10 +11,15 @@ using namespace std::chrono;
 // Szablon funkcji do wypisywania tablicy na ekranie
 template<typename T>
 void printArray(T arr[], int size) {
-    for(int i = 0; i < size; ++i) {
-        cout << arr[i] << " ";
+    if(size <= 50){
+        for(int i = 0; i < size; ++i) {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
     }
-    cout << endl;
+    else {
+        cout << "Rozmiar tablicy jest wiekszy od 50 elementow" << endl;
+    }
 }
 
 // Szablon funkcji do weryfikacji, czy tablica jest posortowana
@@ -154,15 +159,16 @@ void generateRandomArray(T arr[], int size, char dataType) {
 template<typename T>
 void loadArrayFromFile(T arr[], int& size, const string& filename) {
     ifstream file(filename); // Tworzenie strumienia do odczytu z pliku
-    if(file.is_open()) {
-        file >> size; // Wczytanie rozmiaru tablicy z pliku
-        for(int i = 0; i < size; ++i) {
-            file >> arr[i]; // Wczytanie kolejnych elementów tablicy
+    if (file.is_open()) {
+        file >> size;
+        arr = new T[size];
+        for (int i = 0; i < size; ++i) {
+            file >> arr[i];
         }
-        file.close(); // Zamknięcie pliku
+        file.close();
     }
     else {
-        cout << "Nie udalo sie otworzyc pliku." << endl; // Komunikat o błędzie
+        cout << "Nie udalo sie otworzyc pliku. Sprawdz czy poprawnie wpisales nazwe." << endl; // Komunikat o błędzie
     }
 }
 
@@ -242,7 +248,7 @@ string menu2(char dataType){
                     cout << "Tablica nie zostala jeszcze utworzona." << endl;
                 }
                 else {
-                    cout << "Tablica: ";
+                    cout << "Tablica: " << endl;
                     printArray(arr, size); // Wyświetlenie tablicy
                 }
                 break;
