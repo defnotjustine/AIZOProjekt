@@ -215,7 +215,7 @@ string menu2(char dataType){
     string filepath;
     string program = "run";
     T* arr = nullptr;
-    //int* arr = nullptr;
+    T* originalArr = nullptr; // Tablica przechowujaca oryginalne date
 
     while(program == "run") {
         displayMenu2(); // Wyświetlenie menu
@@ -226,23 +226,16 @@ string menu2(char dataType){
                 cout << "Podaj nazwe sciezki pliku: ";
                 cin >> filepath;
                 arr = loadArrayFromFile(arr, size, filepath); // Wczytanie tablicy z pliku
+                originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
+                copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
                 break;
             case 'b':
                 cout << "Podaj rozmiar tablicy: ";
                 cin >> size;
                 arr = new T[size];
                 generateRandomArray(arr, size, dataType);
-                /*
-                if(dataType == 'a'){
-                    arr = new int[size];
-                    generateRandomArray(arr, size); // Wygenerowanie tablicy losowych wartości
-                }
-                else if(dataType == 'b'){
-                    float* arrFloat = nullptr;
-                    arrFloat = new float[size];
-                    generateRandomArray(arrFloat, size); // Wygenerowanie tablicy losowych wartości
-                }
-                */
+                originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
+                copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
                 break;
             case 'c':
                 if(arr == nullptr) {
@@ -250,7 +243,7 @@ string menu2(char dataType){
                 }
                 else {
                     cout << "Tablica: " << endl;
-                    printArray(arr, size); // Wyświetlenie tablicy
+                    printArray(originalArr, size); // Wyświetlenie tablicy
                 }
                 break;
             case 'd':
