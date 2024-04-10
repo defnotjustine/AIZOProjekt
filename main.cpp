@@ -157,8 +157,8 @@ void generateRandomArray(T arr[], int size, char dataType) {
 
 // Funkcja do wczytywania danych z pliku
 template<typename T>
-void loadArrayFromFile(T arr[], int& size, const string& filename) {
-    ifstream file(filename); // Tworzenie strumienia do odczytu z pliku
+T* loadArrayFromFile(T arr[], int& size, const string& filepath) {
+    ifstream file(filepath); // Tworzenie strumienia do odczytu z pliku
     if (file.is_open()) {
         file >> size;
         arr = new T[size];
@@ -166,6 +166,7 @@ void loadArrayFromFile(T arr[], int& size, const string& filename) {
             file >> arr[i];
         }
         file.close();
+        return arr;
     }
     else {
         cout << "Nie udalo sie otworzyc pliku. Sprawdz czy poprawnie wpisales nazwe." << endl; // Komunikat o błędzie
@@ -211,7 +212,7 @@ template<typename T>
 string menu2(char dataType){
     char choice;
     int size;
-    string filename;
+    string filepath;
     string program = "run";
     T* arr = nullptr;
     //int* arr = nullptr;
@@ -222,9 +223,9 @@ string menu2(char dataType){
 
         switch(choice) {
             case 'a':
-                cout << "Podaj nazwe pliku: ";
-                cin >> filename;
-                loadArrayFromFile(arr, size, filename); // Wczytanie tablicy z pliku
+                cout << "Podaj nazwe sciezki pliku: ";
+                cin >> filepath;
+                arr = loadArrayFromFile(arr, size, filepath); // Wczytanie tablicy z pliku
                 break;
             case 'b':
                 cout << "Podaj rozmiar tablicy: ";
