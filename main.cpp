@@ -149,7 +149,7 @@ void generateRandomArray(T arr[], int size, char dataType) {
 }
 
 template<typename T>
-void generateThirtyThree(T arr[], int size, char dataType, float coefficient){
+void generatePartialSort(T arr[], int size, char dataType, float coefficient){
     int min_int = std::numeric_limits<int>::min(); // Najmniejsza wartość typu int
     int max_int = std::numeric_limits<int>::max(); // Największa wartość typu int
     float min_float = std::numeric_limits<float>::lowest(); // Najmniejsza wartość typu float
@@ -184,6 +184,41 @@ void generateThirtyThree(T arr[], int size, char dataType, float coefficient){
             }
             else{
                 arr[i] = distribution(generator);
+            }
+        }
+    }
+}
+
+
+template<typename T>
+void generateSorted(T arr[], int size, char dataType, char sortType){
+    //int
+    if(dataType == 'a'){
+        if(sortType == 'r'){
+            for(int i = 0; i < size; i++){
+                arr[i] = i;
+            }
+        }
+        else if(sortType == 'm'){
+            int j = 0;
+            for(int i = size - 1; i >= 0 ; --i){
+                arr[j] = i;
+                j++;
+            }
+        }
+    }
+    //float
+    else if(dataType == 'b'){
+        if(sortType == 'r'){
+            for(int i = 0; i < size; i++){
+                arr[i] = (float)i;
+            }
+        }
+        else if(sortType == 'm'){
+            int j = 0;
+            for(int i = size - 1; i >= 0 ; --i){
+                arr[j] = (float)i;
+                j++;
             }
         }
     }
@@ -226,6 +261,8 @@ void displayMenu2() {
     cout << "b) Wygeneruj tablice losowych wartosci" << endl;
     cout << "f) Wygeneruj tablice z 33% el. posortowanych" << endl;
     cout << "g) Wygeneruj tablice z 66% el. posortowanych" << endl;
+    cout << "h) Wygeneruj tablice posortowana rosnaco" << endl;
+    cout << "k) Wygeneruj tablice posortowana malejaco" << endl;
     cout << "c) Wyswietl tablice" << endl;
     cout << "d) Uruchom algorytm sortowania" << endl;
     cout << "e) Wyswietl posortowana tablice" << endl;
@@ -341,7 +378,7 @@ string menu2(char dataType){
                 cout << "Podaj rozmiar tablicy: ";
                 cin >> size;
                 arr = new T[size];
-                generateThirtyThree(arr, size, dataType, 0.33);
+                generatePartialSort(arr, size, dataType, 0.33);
                 originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
                 copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
                 break;
@@ -349,7 +386,23 @@ string menu2(char dataType){
                 cout << "Podaj rozmiar tablicy: ";
                 cin >> size;
                 arr = new T[size];
-                generateThirtyThree(arr, size, dataType, 0.66);
+                generatePartialSort(arr, size, dataType, 0.66);
+                originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
+                copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
+                break;
+            case 'h':
+                cout << "Podaj rozmiar tablicy: ";
+                cin >> size;
+                arr = new T[size];
+                generateSorted(arr, size, dataType, 'r');
+                originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
+                copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
+                break;
+            case 'k':
+                cout << "Podaj rozmiar tablicy: ";
+                cin >> size;
+                arr = new T[size];
+                generateSorted(arr, size, dataType, 'm');
                 originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
                 copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
                 break;
