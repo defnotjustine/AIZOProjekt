@@ -4,6 +4,8 @@
 #include <ctime>
 #include <chrono> // Biblioteka do pomiaru czasu
 #include <random>
+#include <iomanip>
+
 
 using namespace std;
 using namespace std::chrono;
@@ -334,13 +336,13 @@ string menu2(char dataType){
 
                     switch(sortChoice) {
                         case '1':
-                            cout << "Czas sortowania przez wstawianie: " << measureSortingTime(insertionSort, arr, size) << " ms" << endl;
+                            cout << "Czas sortowania przez wstawianie: " << fixed << setprecision(3) << measureSortingTime(insertionSort, arr, size) << " ms" << endl;
                             break;
                         case '2':
-                            cout << "Czas sortowania przez scalanie: " << measureSortingTime(mergeSort, arr, size) << " ms" << endl;
+                            cout << "Czas sortowania przez scalanie: " << fixed << setprecision(3) << measureSortingTime(mergeSort, arr, size) << " ms" << endl;
                             break;
                         case '3':
-                            cout << "Czas sortowania babelkowego: " << measureSortingTime(bubbleSort, arr, size) << " ms" << endl;
+                            cout << "Czas sortowania babelkowego: " << fixed << setprecision(3) << measureSortingTime(bubbleSort, arr, size) << " ms" << endl;
                             break;
                         default:
                             cout << "Niepoprawny wybor algorytmu sortowania." << endl;
