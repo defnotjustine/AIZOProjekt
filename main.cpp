@@ -146,13 +146,47 @@ void generateRandomArray(T arr[], int size, char dataType) {
             arr[i] = distribution(generator);
         }
     }
-    //OLD VERSION
-    /*
-    for(int i = 0; i < size; ++i) {
-        arr[i] = static_cast<T>(rand());
-        //arr[i] = rand() % 1000; // Zakres 0-999 dla przykładu
+}
+
+template<typename T>
+void generateThirtyThree(T arr[], int size, char dataType){
+    int min_int = std::numeric_limits<int>::min(); // Najmniejsza wartość typu int
+    int max_int = std::numeric_limits<int>::max(); // Największa wartość typu int
+    float min_float = std::numeric_limits<float>::lowest(); // Najmniejsza wartość typu float
+    float max_float = std::numeric_limits<float>::max();    // Największa wartość typu float
+    srand(time(nullptr)); // Inicjalizacja generatora liczb pseudolosowych
+
+    //int
+    if(dataType == 'a'){
+        // Inicjalizacja generatora liczb losowych
+        random_device rd;
+        mt19937 gen(rd());
+        // Określenie rozkładu liczbowego (int_min do int_max)
+        uniform_int_distribution<int> distribution(min_int, max_int);
+        for(int i = 0; i < size; i++){
+            if(i < size * 0.33){
+                arr[i] = i;
+            }
+            else{
+                arr[i] = distribution(gen);
+            }
+        }
     }
-     */
+    //float
+    else if(dataType == 'b'){
+        // Utwórz generator liczb losowych
+        random_device rd;
+        default_random_engine generator(rd());
+        uniform_real_distribution<double> distribution(min_float, max_float);
+        for(int i = 0; i < size; i++){
+            if(i < size * 0.33){
+                arr[i] = (float)i;
+            }
+            else{
+                arr[i] = distribution(generator);
+            }
+        }
+    }
 }
 
 // Funkcja do wczytywania danych z pliku
@@ -190,6 +224,7 @@ void displayMenu2() {
     cout << "Menu 2:" << endl;
     cout << "a) Wczytaj tablice z pliku" << endl;
     cout << "b) Wygeneruj tablice losowych wartosci" << endl;
+    cout << "f) Wygeneruj tablice z 33% el. posortowanych" << endl;
     cout << "c) Wyswietl tablice" << endl;
     cout << "d) Uruchom algorytm sortowania" << endl;
     cout << "e) Wyswietl posortowana tablice" << endl;
@@ -301,6 +336,14 @@ string menu2(char dataType){
                 cout << " " << endl;
                 program = "exit";
                 return program;
+            case 'f':
+                cout << "Podaj rozmiar tablicy: ";
+                cin >> size;
+                arr = new T[size];
+                generateThirtyThree(arr, size, dataType);
+                originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
+                copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
+                break;
             default:
                 cout << "Niepoprawny wybor." << endl;
                 break;
