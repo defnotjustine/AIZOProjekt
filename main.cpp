@@ -259,13 +259,13 @@ void displayMenu2() {
     cout << "Menu 2:" << endl;
     cout << "a) Wczytaj tablice z pliku" << endl;
     cout << "b) Wygeneruj tablice losowych wartosci" << endl;
-    cout << "f) Wygeneruj tablice z 33% el. posortowanych" << endl;
-    cout << "g) Wygeneruj tablice z 66% el. posortowanych" << endl;
-    cout << "h) Wygeneruj tablice posortowana rosnaco" << endl;
-    cout << "k) Wygeneruj tablice posortowana malejaco" << endl;
-    cout << "c) Wyswietl tablice" << endl;
-    cout << "d) Uruchom algorytm sortowania" << endl;
-    cout << "e) Wyswietl posortowana tablice" << endl;
+    cout << "c) Wygeneruj tablice z 33% el. posortowanych" << endl;
+    cout << "d) Wygeneruj tablice z 66% el. posortowanych" << endl;
+    cout << "e) Wygeneruj tablice posortowana rosnaco" << endl;
+    cout << "f) Wygeneruj tablice posortowana malejaco" << endl;
+    cout << "g) Wyswietl tablice" << endl;
+    cout << "h) Uruchom algorytm sortowania" << endl;
+    cout << "i) Wyswietl posortowana tablice" << endl;
     cout << "q) Wyjscie z programu" << endl;
     cout << "Wybierz opcje: ";
 }
@@ -310,7 +310,7 @@ string menu2(char dataType){
                 originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
                 copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
                 break;
-            case 'c':
+            case 'g':
                 if(arr == nullptr) {
                     cout << "Tablica nie zostala jeszcze utworzona." << endl;
                 }
@@ -319,7 +319,7 @@ string menu2(char dataType){
                     printArray(originalArr, size); // Wyświetlenie tablicy
                 }
                 break;
-            case 'd':
+            case 'h':
                 if(arr == nullptr) {
                     cout << "Tablica nie zostala jeszcze utworzona." << endl;
                 }
@@ -356,7 +356,7 @@ string menu2(char dataType){
                     }
                 }
                 break;
-            case 'e':
+            case 'i':
                 if(arr == nullptr) {
                     cout << "Tablica nie zostala jeszcze utworzona." << endl;
                 }
@@ -374,7 +374,7 @@ string menu2(char dataType){
                 cout << " " << endl;
                 program = "exit";
                 return program;
-            case 'f':
+            case 'c':
                 cout << "Podaj rozmiar tablicy: ";
                 cin >> size;
                 arr = new T[size];
@@ -382,7 +382,7 @@ string menu2(char dataType){
                 originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
                 copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
                 break;
-            case 'g':
+            case 'd':
                 cout << "Podaj rozmiar tablicy: ";
                 cin >> size;
                 arr = new T[size];
@@ -390,7 +390,7 @@ string menu2(char dataType){
                 originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
                 copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
                 break;
-            case 'h':
+            case 'e':
                 cout << "Podaj rozmiar tablicy: ";
                 cin >> size;
                 arr = new T[size];
@@ -398,7 +398,7 @@ string menu2(char dataType){
                 originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
                 copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
                 break;
-            case 'k':
+            case 'f':
                 cout << "Podaj rozmiar tablicy: ";
                 cin >> size;
                 arr = new T[size];
