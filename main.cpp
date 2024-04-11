@@ -149,7 +149,7 @@ void generateRandomArray(T arr[], int size, char dataType) {
 }
 
 template<typename T>
-void generateThirtyThree(T arr[], int size, char dataType){
+void generateThirtyThree(T arr[], int size, char dataType, float coefficient){
     int min_int = std::numeric_limits<int>::min(); // Najmniejsza wartość typu int
     int max_int = std::numeric_limits<int>::max(); // Największa wartość typu int
     float min_float = std::numeric_limits<float>::lowest(); // Najmniejsza wartość typu float
@@ -164,7 +164,7 @@ void generateThirtyThree(T arr[], int size, char dataType){
         // Określenie rozkładu liczbowego (int_min do int_max)
         uniform_int_distribution<int> distribution(min_int, max_int);
         for(int i = 0; i < size; i++){
-            if(i < size * 0.33){
+            if(i < size * coefficient){
                 arr[i] = i;
             }
             else{
@@ -225,6 +225,7 @@ void displayMenu2() {
     cout << "a) Wczytaj tablice z pliku" << endl;
     cout << "b) Wygeneruj tablice losowych wartosci" << endl;
     cout << "f) Wygeneruj tablice z 33% el. posortowanych" << endl;
+    cout << "g) Wygeneruj tablice z 66% el. posortowanych" << endl;
     cout << "c) Wyswietl tablice" << endl;
     cout << "d) Uruchom algorytm sortowania" << endl;
     cout << "e) Wyswietl posortowana tablice" << endl;
@@ -340,7 +341,15 @@ string menu2(char dataType){
                 cout << "Podaj rozmiar tablicy: ";
                 cin >> size;
                 arr = new T[size];
-                generateThirtyThree(arr, size, dataType);
+                generateThirtyThree(arr, size, dataType, 0.33);
+                originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
+                copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
+                break;
+            case 'g':
+                cout << "Podaj rozmiar tablicy: ";
+                cin >> size;
+                arr = new T[size];
+                generateThirtyThree(arr, size, dataType, 0.66);
                 originalArr = new T[size]; // Utworzenie kopii oryginalnej tablicy
                 copy(arr, arr + size, originalArr); // Skopiowanie danych do tablicy oryginalnej
                 break;
